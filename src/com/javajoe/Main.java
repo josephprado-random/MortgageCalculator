@@ -65,7 +65,7 @@ public class Main {
         float numberOfPayments = years * MONTHS_IN_YEAR;
 
         if (annualRate == 0)
-            return principal - (numberOfPaymentsMade * mortgage);//calculateMortgage(principal, annualRate, years));
+            return principal - (numberOfPaymentsMade * mortgage);
         else
             return principal
                     * (Math.pow(1 + monthlyRate, numberOfPayments) - Math.pow(1 + monthlyRate, numberOfPaymentsMade))
