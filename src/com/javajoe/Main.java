@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
     final static byte MONTHS_IN_YEAR = 12;
     final static byte PERCENT = 100;
+    public static double mortgage;
 
     public static void main(String[] args) {
         double principal = readInput("Loan Amount", 0);
@@ -29,7 +30,7 @@ public class Main {
     }
 
     private static void printMortgage(double principal, float annualRate, float years) {
-        double mortgage = calculateMortgage(principal, annualRate, years);
+        mortgage = calculateMortgage(principal, annualRate, years);
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("MORTGAGE");
         System.out.println("--------");
@@ -64,7 +65,7 @@ public class Main {
         float numberOfPayments = years * MONTHS_IN_YEAR;
 
         if (annualRate == 0)
-            return principal - (numberOfPaymentsMade * calculateMortgage(principal, annualRate, years));
+            return principal - (numberOfPaymentsMade * mortgage);//calculateMortgage(principal, annualRate, years));
         else
             return principal
                     * (Math.pow(1 + monthlyRate, numberOfPayments) - Math.pow(1 + monthlyRate, numberOfPaymentsMade))
