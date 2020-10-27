@@ -3,20 +3,26 @@ package com.javajoe;
 import java.text.NumberFormat;
 
 public class MortgageReport {
-    public static void printMortgage(double principal, float annualRate, float years) {
-        Main.mortgage = MortgageCalculator.calculateMortgage(principal, annualRate, years);
-        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(Main.mortgage);
+    private MortgageCalculator calculator;
+
+    public MortgageReport(MortgageCalculator calculator) {
+        this.calculator = calculator;
+    }
+
+    public void printMortgage() {
+        double mortgage = calculator.calculateMortgage();
+        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("MORTGAGE");
         System.out.println("--------");
         System.out.println("Monthly Payment: " + mortgageFormatted);
     }
 
-    public static void printPaymentSchedule(double principal, float annualRate, float years) {
+    public void printPaymentSchedule() {
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("----------------");
-        for (short month = 0; month <= years * Main.MONTHS_IN_YEAR; month++) {
-            double balance = MortgageCalculator.calculateBalance(principal, annualRate, years, month);
+        for (short month = 0; month <= calculator.getYears() * Main.MONTHS_IN_YEAR; month++) {
+            double balance = calculator.calculateBalance(month);
             System.out.println(month + "\t" + NumberFormat.getCurrencyInstance().format(balance));
         }
     }

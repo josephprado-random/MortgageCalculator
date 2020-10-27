@@ -1,29 +1,44 @@
 package com.javajoe;
 
 public class MortgageCalculator {
+    private double principal;
+    private float annualRate;
+    private float years;
+    private double mortgage;
 
-    public static double calculateMortgage(double principal, float annualRate, float years) {
+    public MortgageCalculator(double principal, float annualRate, float years) {
+        this.principal = principal;
+        this.annualRate = annualRate;
+        this.years = years;
+    }
+
+    public double calculateMortgage() {
         float monthlyRate = annualRate / Main.PERCENT / Main.MONTHS_IN_YEAR;
         float numberOfPayments = years * Main.MONTHS_IN_YEAR;
 
         if (annualRate == 0)
-            return principal / numberOfPayments;
+            mortgage = principal / numberOfPayments;
         else
-            return principal
+            mortgage = principal
                     * monthlyRate
                     * Math.pow((1 + monthlyRate), numberOfPayments)
                     / (Math.pow((1 + monthlyRate), numberOfPayments) - 1);
+        return mortgage;
     }
 
-    public static double calculateBalance(double principal, float annualRate, float years, short numberOfPaymentsMade) {
+    public double calculateBalance(short numberOfPaymentsMade) {
         float monthlyRate = annualRate / Main.PERCENT / Main.MONTHS_IN_YEAR;
         float numberOfPayments = years * Main.MONTHS_IN_YEAR;
+        double balance;
 
         if (annualRate == 0)
-            return principal - (numberOfPaymentsMade * Main.mortgage);
+            balance = principal - (numberOfPaymentsMade * mortgage);
         else
-            return principal
+            balance = principal
                     * (Math.pow(1 + monthlyRate, numberOfPayments) - Math.pow(1 + monthlyRate, numberOfPaymentsMade))
                     / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+        return balance;
     }
+
+    public float getYears() { return years; }
 }
